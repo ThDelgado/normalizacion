@@ -1,0 +1,36 @@
+CREATE TABLE  clientes(
+    idCliente SERIAL PRIMARY KEY,
+    cliente VARCHAR(150) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    ciudad VARCHAR(75) NOT NULL
+);
+
+CREATE TABLE articulos(
+    codigo SERIAL PRIMARY KEY,
+    idOrden INTEGER REFERENCES ordenes(idOrden),
+    articulo VARCHAR(150) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    stock INTEGER
+)
+
+CREATE TABLE ordenes(
+    idOrden SERIAL PRIMARY KEY,
+    idCliente INTEGER REFERENCES clientes(idCliente) on DELETE CASCADE,
+	fecha DATE NOT NULL,
+    cantidad INTEGER NOT NULL
+)
+
+
+INSERT INTO  clientes (cliente, email, ciudad) VALUES 
+('CarLos Soto', 'carlos@lqsea.com', 'Santiago'),
+('Lucas Mendez', 'lm2465@lquesea.com', 'La Reina');
+INSERT TO articulos(articulo, precio, stock) VALUES
+('Destornillador electrico MAKITA', 150.23, 10),
+('Sierra electrica', 250.40, 5);
+
+INSERT INTO ordenes(idCliente, fecha, cantidad)  VALUES
+(1,'2024-09-28', 1);
+
+SELECT * FROM clientes;
+SELECT * FROM articulos;
+SELECT * FROM ordenes;
